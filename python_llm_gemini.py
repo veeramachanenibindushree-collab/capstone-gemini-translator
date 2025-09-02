@@ -1,5 +1,6 @@
 import streamlit as st
 import google.generativeai as genai
+from pathlib import Path
 from dotenv import load_dotenv
 from gtts import gTTS
 import os
@@ -15,9 +16,13 @@ import tempfile
 #model
 
 # Load API key from environment variable
-load_dotenv()
 
+load_dotenv()
 api_key = os.getenv("GOOGLE_API_KEY")
+genai.configure(api_key=api_key)
+model = genai.GenerativeModel("gemini-1.5-flash")
+#model
+
 #Function : Translate text using Google Generative AI
 def translate_text(text, target_language):
     try:
