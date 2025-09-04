@@ -8,13 +8,6 @@ import pandas as pd
 import PyPDF2
 import tempfile
 
-
-
-# Set up the Google Generative AI API key
-#genai.configure(api_key="AIzaSyDFN9zCMHobDIl0Z0_in4DjcOuUkVdH9YY")
-#model = genai.GenerativeModel("gemini-1.5-flash")
-#model
-
 # Load API key from environment variable
 
 load_dotenv()
@@ -117,4 +110,5 @@ if st.button("Translate"):
             with open(audio_file, 'rb') as f:
                 st.download_button('Download Audio', f, file_name='translated_audio.mp3', mime='audio/mp3')
         else:
+
             st.error("Error generating audio file.")
