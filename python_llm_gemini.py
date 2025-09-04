@@ -8,13 +8,14 @@ import pandas as pd
 import PyPDF2
 import tempfile
 
+
 # Load API key from environment variable
 
 load_dotenv()
 api_key = os.getenv("GOOGLE_API_KEY")
 genai.configure(api_key=api_key)
 model = genai.GenerativeModel("gemini-1.5-flash")
-model
+
 
 #Function : Translate text using Google Generative AI
 def translate_text(text, target_language):
@@ -60,6 +61,37 @@ def text_to_speech(text, language='en'):
     except Exception as e:
         return f"Error during text-to-speech conversion: {e}"
     
+# Custom CSS styling for Streamlit app
+st.markdown(
+    """
+    <style>
+    /* Page background */
+    .stApp {
+        background-color: #f4f9ff;  /* light blue/white background */
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    /* Title (h1) */
+    h1, .stMarkdown h1 {
+        color: #2E8B57 !important;   
+        text-align: center;
+        font-size: 42px !important;
+        font-weight: bold !important;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        padding: 10px 0;
+    }
+
+    /* Subheader (h3) */
+    h3, .stMarkdown h3 {
+        color: orange !important;   /* Orange */
+        font-size: 26px !important;
+        font-style: italic !important;
+        margin-top: 15px;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
 
 # Streamlit app UI
@@ -110,5 +142,4 @@ if st.button("Translate"):
             with open(audio_file, 'rb') as f:
                 st.download_button('Download Audio', f, file_name='translated_audio.mp3', mime='audio/mp3')
         else:
-
             st.error("Error generating audio file.")
