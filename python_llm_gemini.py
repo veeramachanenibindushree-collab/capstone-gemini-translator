@@ -30,8 +30,8 @@ def translate_text(text, target_language):
 # Function : Extract text from uploaded files
 def extract_text_from_file(uploaded_file):
     if uploaded_file.name.endswith('.pdf'):
-        with tempfile.NamedTemporaryFile(delete=False, suffix='/pdf') as temp_file:
-            temp_file.wrire(uploaded_file.getbuffer())
+        with tempfile.NamedTemporaryFile(delete=False, suffix='.pdf') as temp_file:
+            temp_file.write(uploaded_file.getbuffer())
             with open(temp_file.name, 'rb') as file:
                 reader = PyPDF2.PdfReader(file)
                 text = ''
@@ -43,10 +43,10 @@ def extract_text_from_file(uploaded_file):
         return uploaded_file.getvalue().decode("utf-8")
     elif uploaded_file.name.endswith('.csv'):
         df = pd.read_csv(uploaded_file)
-        return " ".join(df.astype(str).value.flatten())
+        return " ".join(df.astype(str).values.flatten())
     elif uploaded_file.name.endswith('.xlsx'):
         df = pd.read_excel(uploaded_file)
-        return " ".join(df.astype(str).value.flatten()) 
+        return " ".join(df.astype(str).values.flatten()) 
     else:
         return "Unsupported file format. Please upload a PDF or TXT,CSV or XLSX file format alone."
     
